@@ -2,7 +2,7 @@
   "name": "pi-tools",
   "version": "1.0.0",
   "description": "A collection of quality-of-life extensions for the pi coding agent harness",
-  "keywords": ["pi-package", "pi-coding-agent", "read", "edit", "handoff", "wrap"],
+  "keywords": ["pi-package", "pi-coding-agent", "read", "edit", "handoff", "wrap", "reply"],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -13,7 +13,8 @@
       "./extensions/read-response",
       "./extensions/edit-file",
       "./extensions/handoff",
-      "./extensions/wrap"
+      "./extensions/wrap",
+      "./extensions/reply-command"
     ]
   }
 }

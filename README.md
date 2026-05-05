@@ -73,6 +73,23 @@ Clean up with `rm handoff-*`.
 
 ---
 
+### `/reply`
+
+Open the last assistant message in `$EDITOR` (or `$VISUAL`, falling back to `vi`), then immediately send it as your next message when you save and quit.
+
+```
+/reply
+```
+
+This is useful when you want to:
+- Tweak the AI's response before sending it onward
+- Add context or fix a misunderstanding before the AI continues
+- Chain ideas across a conversation by editing what the assistant just said
+
+When you save and quit the editor (`:wq`), the edited text is immediately sent as your next user message. If you quit without saving (`:q!`), the reply is cancelled.
+
+---
+
 ### `/wrap [path] [--last N]`
 
 Generate a structured session summary (Goal, Progress, Key Decisions, Next Steps, Files Touched) using the LLM. Unlike `/handoff` which dumps raw messages, `/wrap` produces a condensed, readable checkpoint you can bring into a fresh session.
@@ -122,7 +139,7 @@ cd extensions/read-response && npm install && cd ../..
 cd extensions/wrap && npm install && cd ../..
 
 # Test locally
-pi -e extensions/read-response -e extensions/edit-file -e extensions/handoff -e extensions/wrap
+pi -e extensions/read-response -e extensions/edit-file -e extensions/handoff -e extensions/wrap -e extensions/reply-command
 ```
 
 ## License

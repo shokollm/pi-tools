@@ -1,0 +1,7 @@
+{
+  "name": "wrap",
+  "private": true,
+  "dependencies": {
+    "@mariozechner/pi-ai": "^0.73.0"
+  }
+}

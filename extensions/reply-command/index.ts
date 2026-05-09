@@ -4,10 +4,21 @@ import { writeFileSync, readFileSync, unlinkSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
+/**
+ * Prefix each line of text with "> " (email-style quoting).
+ * Preserves blank lines as "> " so visual structure is maintained.
+ */
+function quoteText(text: string): string {
+  return text
+    .split("\n")
+    .map((line) => "> " + line)
+    .join("\n");
+}
+
 export default function (pi: ExtensionAPI) {
   pi.registerCommand("reply", {
     description:
-      "Open $EDITOR with the last assistant message, then immediately send the edited reply",
+      "Open $EDITOR with the last assistant message quoted (> ), then immediately send the edited reply",
 
     handler: async (_args, ctx) => {
       const branch = ctx.sessionManager.getBranch();
@@ -43,8 +54,9 @@ export default function (pi: ExtensionAPI) {
       const editorCmd = process.env.VISUAL || process.env.EDITOR || "vi";
       const tmpFile = join(tmpdir(), `pi-reply-${Date.now()}.md`);
 
-      // Write the last assistant message to a temp file
-      writeFileSync(tmpFile, lastAssistantText, "utf-8");
+      // Quote the assistant message and add a blank line separator for the reply
+      const quotedContent = quoteText(lastAssistantText) + "\n\n";
+      writeFileSync(tmpFile, quotedContent, "utf-8");
 
       let editedText: string | undefined;
 

@@ -75,18 +75,30 @@ Clean up with `rm handoff-*`.
 
 ### `/reply`
 
-Open the last assistant message in `$EDITOR` (or `$VISUAL`, falling back to `vi`), then immediately send it as your next message when you save and quit.
+Open the **last assistant message quoted** (`> ` prefix per line) in `$EDITOR`, then write your reply below and send it on save.
 
 ```
 /reply
 ```
 
-This is useful when you want to:
-- Tweak the AI's response before sending it onward
-- Add context or fix a misunderstanding before the AI continues
-- Chain ideas across a conversation by editing what the assistant just said
+When you invoke `/reply`, the editor opens with:
 
-When you save and quit the editor (`:wq`), the edited text is immediately sent as your next user message. If you quit without saving (`:q!`), the reply is cancelled.
+```
+> What the assistant just said
+> line two of the response
+> line three
+
+← type your reply here
+```
+
+This uses the standard email-quoting pattern — the quoted assistant text gives the model context for what you're responding to, and you write your message below the blank line.
+
+Use cases:
+- Correct a misunderstanding without retyping everything
+- Add context or refine before the model continues
+- Reference something the model just said in your reply
+
+When you save and quit (`:wq`), the full content (quote + your reply) is sent as your next user message. If you quit without saving (`:q!`), the reply is cancelled.
 
 ---
 
